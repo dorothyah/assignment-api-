@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class PostResponseDto {
+public class PostResponseDto { // 생성된 Post 목록을 위한 Dto
     private Long id;
     private String username;
     private String title;
