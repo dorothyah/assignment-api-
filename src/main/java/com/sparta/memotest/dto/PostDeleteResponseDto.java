@@ -3,7 +3,7 @@ package com.sparta.memotest.dto;
 import lombok.Getter;
 
 @Getter
-public class PostDeleteResponseDto { // Post 삭제 요청에 응답
+public class PostDeleteResponseDto {
     private boolean success;
 
     public PostDeleteResponseDto(Boolean result){
