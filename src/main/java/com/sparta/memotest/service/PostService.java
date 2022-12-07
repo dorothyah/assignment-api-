@@ -35,25 +35,25 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
-        Post post = postRepository.findByIdAndPassword(id, requestDto.getPassword()).orElseThrow(
-                () -> new IllegalArgumentException("비밀번호가 일치하지 않습니다.")
-        );
-        post.update(requestDto);
-        postRepository.save(post);
+//    @Transactional
+//    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
+//        Post post = postRepository.findByIdAndPassword(id, requestDto.getPassword()).orElseThrow(
+//                () -> new IllegalArgumentException("비밀번호가 일치하지 않습니다.")
+//        );
+//        post.update(requestDto);
+//        postRepository.save(post);
+//
+//        return new PostResponseDto(post);
+//    }
 
-        return new PostResponseDto(post);
-    }
-
-    @Transactional
-    public boolean deletePost(Long id, String password) {
-        if (postRepository.existsByIdAndPassword(id, password)) {
-            postRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
+//    @Transactional
+//    public boolean deletePost(Long id, String password) {
+//        if (postRepository.existsByIdAndPassword(id, password)) {
+//            postRepository.deleteById(id);
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Transactional (readOnly = true)
     public PostResponseDto getPost(Long id) {

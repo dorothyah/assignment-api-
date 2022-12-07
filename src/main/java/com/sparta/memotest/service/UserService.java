@@ -1,12 +1,15 @@
 package com.sparta.memotest.service;
 
 import com.sparta.memotest.dto.LoginRequestDto;
+import com.sparta.memotest.dto.LoginResponseDto;
 import com.sparta.memotest.dto.SignupRequestDto;
+import com.sparta.memotest.dto.SignupResponseDto;
 import com.sparta.memotest.entity.User;
 import com.sparta.memotest.entity.UserRoleEnum;
 import com.sparta.memotest.jwt.JwtUtil;
 import com.sparta.memotest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +23,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    // ADMIN_TOKEN
-    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
-
     @Transactional
-    public void signup(SignupRequestDto signupRequestDto) {
+    public SignupResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
-        String email = signupRequestDto.getEmail();
 
         // 회원 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
@@ -35,21 +34,16 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
-        // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
-        if (signupRequestDto.isAdmin()) {
-            if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
-                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
-            }
-            role = UserRoleEnum.ADMIN;
-        }
 
-        User user = new User(username, password, email, role);
+        User user = new User(username, password, role);
         userRepository.save(user);
+
+        return new SignupResponseDto("회원가입 성공", HttpStatus.OK.value());
     }
 
     @Transactional(readOnly = true)
-    public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public LoginResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -63,5 +57,9 @@ public class UserService {
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
+
+        return new LoginResponseDto("로그인 성공", HttpStatus.OK.value());
+
     }
+
 }

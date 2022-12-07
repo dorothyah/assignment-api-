@@ -32,14 +32,12 @@ public class Post extends Timestamped { // Timestamped 의 생성 시간, 수정
     // 최대한 외부에서 Entity 클래스의 getter method 를 사용하지 않도록 해당 클래스 안에서 필요한 logic method 를 구현한다.
     public Post(PostRequestDto requestDto) {
         this.username = requestDto.getUsername();
-        this.password = requestDto.getPassword();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
 
     public void update(PostRequestDto postRequestDto) {
         this.username = postRequestDto.getUsername();
-        this.password = postRequestDto.getPassword();
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
     }

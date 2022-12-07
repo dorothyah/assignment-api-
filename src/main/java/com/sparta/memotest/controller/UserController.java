@@ -1,7 +1,6 @@
 package com.sparta.memotest.controller;
 
-import com.sparta.memotest.dto.LoginRequestDto;
-import com.sparta.memotest.dto.SignupRequestDto;
+import com.sparta.memotest.dto.*;
 import com.sparta.memotest.dto.SignupRequestDto;
 import com.sparta.memotest.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +29,14 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequestDto signupRequestDto) {
-        userService.signup(signupRequestDto);
-        return "회원가입 성공!";
+    public SignupResponseDto signup(@RequestBody SignupRequestDto signupRequestDto) {
+        return userService.signup(signupRequestDto);
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        userService.login(loginRequestDto, response);
-        return "로그인 성공!";
+    public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        return userService.login(loginRequestDto, response);
     }
 
 }
