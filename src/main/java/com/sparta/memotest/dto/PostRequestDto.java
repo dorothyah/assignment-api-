@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class PostRequestDto {
-    private String username;
+//    private String username;
     private String title;
     private String contents;
     private LocalDateTime registeredAt;

@@ -8,6 +8,7 @@ import com.sparta.memotest.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController // @Controller + @ResponseBody 이며, 메소드의 return(반환 결과값)을 문자열(JSON) 형태로 반환합니다.
@@ -30,8 +31,8 @@ public class PostController {
     // List 형식으로 반환
 
     @PostMapping("/posts") // POST 요청을 받기 위해 사용
-    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
-        return postService.createPost(requestDto);
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request) {
+        return postService.createPost(requestDto, request);
     }
     // @RequestBody, Json 기반의 http Body 를 자바 객체로 변환 / 클라이언트 > 서버 요청 : @RequestBody
     // @ResponseBody, 자바 객체를 Json 기반의 http Body 로 변환 / 서버 > 클라이언트 응답 : @ResponseBody
@@ -42,13 +43,13 @@ public class PostController {
     }
     // @PathVariable, http 의 요청에 대해 매칭되는 request parameter 값이 자동으로 매칭된다.
 
-//    @PutMapping("/posts/{id}") // PUT 요청을 받기 위해 사용
-//    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-//        return postService.updatePost(id, requestDto);
-//    }
+    @PutMapping("/posts/{id}") // PUT 요청을 받기 위해 사용
+    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto, HttpServletRequest request) {
+        return postService.updatePost(id, requestDto, request);
+    }
 
-//    @DeleteMapping("/posts/{id}") // DELETE 요청을 받기 위해 사용
-//    public PostDeleteResponseDto deletePost(@PathVariable Long id, @RequestBody PostDeleteRequestDto requestDto){
-//        return new PostDeleteResponseDto(postService.deletePost(id, requestDto.getPassword()));
-//    }
+    @DeleteMapping("/posts/{id}") // DELETE 요청을 받기 위해 사용
+    public PostDeleteResponseDto deletePost(@PathVariable Long id, HttpServletRequest request){
+        return postService.deletePost(id, request);
+    }
 }

@@ -21,23 +21,24 @@ public class Post extends Timestamped { // Timestamped 의 생성 시간, 수정
     private String username;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String contents;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
+
     // 최대한 외부에서 Entity 클래스의 getter method 를 사용하지 않도록 해당 클래스 안에서 필요한 logic method 를 구현한다.
-    public Post(PostRequestDto requestDto) {
-        this.username = requestDto.getUsername();
+    public Post(PostRequestDto requestDto, User user) {
+        this.username = user.getUsername();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
+        this.user = user;
     }
 
     public void update(PostRequestDto postRequestDto) {
-        this.username = postRequestDto.getUsername();
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
     }

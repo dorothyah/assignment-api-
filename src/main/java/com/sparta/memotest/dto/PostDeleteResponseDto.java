@@ -1,13 +1,18 @@
 package com.sparta.memotest.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class PostDeleteResponseDto {
-    private boolean success;
 
-    public PostDeleteResponseDto(Boolean result){
-        this.success = result;
+    private String msg;
+    private int statusCode;
+
+    public PostDeleteResponseDto(String msg, int statusCode) {
+        this.msg = msg;
+        this.statusCode = statusCode;
     }
 }
 

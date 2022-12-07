@@ -13,7 +13,6 @@ public class PostResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-
     public PostResponseDto(Post entity) {
         this.id = entity.getId();
         this.username = entity.getUsername();

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> { // JpaRepository 의 기능을 상속받는다.
     List<Post> findAllByOrderByCreatedAtDesc(); // Post 작성 날짜 기준 내림차순으로 찾기
-//    Optional<Post> findByIdAndPassword(Long id, String password);
+//    Optional<Post> findById(Long id);
 //    Boolean existsByIdAndPassword(Long id, String password);
 }
 
