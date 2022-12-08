@@ -83,14 +83,14 @@ public class PostService {
                 String username = claims.getSubject(); //토큰  안에 있는 username을 가져온 것.
 
                 post = postRepository.findById(id).orElseThrow(//memoRepository (memo Entity)DB에서 가져온다.
-                        () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+                        () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
                 );
                 if (username.equals(post.getUsername())) {
                     //update 진행
                     post.update(requestDto); //
                 } else {
                     //에러 알람.
-                    throw new IllegalArgumentException("아이디가 다릅니다.");
+                    throw new IllegalArgumentException("사용자가 다릅니다.");
                 }
             }
             return new PostResponseDto(post);

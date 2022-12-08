@@ -21,5 +21,5 @@ public class Timestamped {
     private LocalDateTime createdAt; // 생성된 시간 표시
 
     @LastModifiedDate
-    private LocalDateTime modifiedAt; // 수정된 시간 표시
+    private LocalDateTime modifiedAt; // 수정된 시간 표시 
 }
